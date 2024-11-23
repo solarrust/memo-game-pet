@@ -25,7 +25,7 @@
   border-radius: 0.5rem;
   box-shadow: 5px 5px 5px rgb(0 0 0 / 10%);
   font-weight: bold;
-  font-size: 3rem;
+  font-size: clamp(20px, 12vw, 80px);
   transition: transform 300ms;
   transform-origin: center;
   transform-style: preserve-3d;
@@ -43,7 +43,6 @@
     display: grid;
     place-items: center;
     border-radius: inherit;
-    font-size: 10rem;
     background: #8541AD;
     background: linear-gradient(135deg, #8541AD, #E6B18A);
     backface-visibility: hidden;
@@ -76,3 +75,4 @@
   padding-block: 2rem;
   font-size: 1.5rem;
 }
+
