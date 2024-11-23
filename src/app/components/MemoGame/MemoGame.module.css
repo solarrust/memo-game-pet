@@ -1,10 +1,9 @@
-.page {
-  min-height: 100dvh;
-  text-align: center;
+.memo-game {
+  margin-block: auto;
 }
 
 .title {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 2em;
   text-align: center;
 }
 
@@ -12,7 +11,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  max-width: 800px;
   margin: 0 auto;
   perspective: 1000px;
 }
@@ -20,10 +18,10 @@
 .card {
   position: relative;
   display: grid;
+  flex-grow: 1;
   place-items: center;
   width: calc(100% / 4 - 10px);
   aspect-ratio: 1;
-  border: 1px solid rgb(0 0 0 / 10%);
   border-radius: 0.5rem;
   box-shadow: 5px 5px 5px rgb(0 0 0 / 10%);
   font-weight: bold;
@@ -37,9 +35,23 @@
   & > * {
     pointer-events: none;
   }
+
+  &::after {
+    content: '?';
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    border-radius: inherit;
+    font-size: 10rem;
+    background: #8541AD;
+    background: linear-gradient(135deg, #8541AD, #E6B18A);
+    backface-visibility: hidden;
+  }
 }
 
 .image {
+  position: relative;
   width: 100%;
   height: 100%;
   border-radius: inherit;
@@ -53,4 +65,14 @@
 
 .footer {
   margin-top: 3rem;
+  text-align: center;
+}
+
+.counters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 2rem;
+  font-size: 1.5rem;
 }

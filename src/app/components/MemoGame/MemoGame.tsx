@@ -15,7 +15,7 @@ interface MemoGameProps {
 export default function MemoGame({ images }: MemoGameProps) {
   const [flipped, setFlipped] = useState<number[]>([]);
   const [solved, setSolved] = useState<number[]>([]);
-  const [steps, setSteps] = useState(0);
+  const [steps, setSteps] = useState<number>(0);
 
   function handleClick(event: MouseEvent, index: number) {
     if (flipped.length >= 2) return;
@@ -49,14 +49,21 @@ export default function MemoGame({ images }: MemoGameProps) {
     window.location.reload();
   }
 
+  if (steps === 1) {
+  }
+
   return (
-    <div className={styles.page}>
+    <section className={styles["memo-game"]}>
       <h1 className={styles.title}>Memo Game</h1>
       {gameOver && <Popup restartFn={resetGame} steps={steps} />}
-      <p>Steps: {steps}</p>
-      <p>
-        Pairs found: {solved.length / 2} / {images.length / 2}
-      </p>
+      <div className={styles.counters}>
+        <p>
+          <b>Steps</b>: {steps}
+        </p>
+        <p>
+          <b>Pairs found</b>: {solved.length / 2} / <b>{images.length / 2}</b>
+        </p>
+      </div>
       <div className={styles.board}>
         {images.map((image, index) => (
           <div
@@ -64,11 +71,15 @@ export default function MemoGame({ images }: MemoGameProps) {
             className={`${styles.card} ${flipped.includes(index) || solved.includes(index) ? styles.flipped : ""}`}
             onClick={(event) => handleClick(event, index)}
           >
-            {flipped.includes(index) || solved.includes(index) ? (
-              <Image src={`${image}`} fill alt="Memory Card" className={styles.image} />
-            ) : (
-              "?"
-            )}
+            <Image
+              src={`${image}`}
+              alt="Memory Card"
+              className={styles.image}
+              fill={true}
+              sizes={"400px"}
+              priority={true}
+              loading="eager"
+            />
           </div>
         ))}
       </div>
@@ -77,6 +88,6 @@ export default function MemoGame({ images }: MemoGameProps) {
           Restart game
         </Button>
       </div>
-    </div>
+    </section>
   );
 }

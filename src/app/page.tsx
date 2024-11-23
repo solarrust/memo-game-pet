@@ -1,24 +1,39 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import shuffle from "lodash/shuffle";
 
+import CircularProgress from "@mui/material/CircularProgress";
+
+import Footer from "./components/Footer/Footer";
 import MemoGame from "./components/MemoGame/MemoGame";
+import { fetchImages } from "./utils";
 
-const images = [
-  "https://images.unsplash.com/photo-1626808642875-0aa545482dfb",
-  "https://images.unsplash.com/photo-1546842931-886c185b4c8c",
-  "https://images.unsplash.com/photo-1520763185298-1b434c919102",
-  "https://images.unsplash.com/photo-1442458017215-285b83f65851",
-  "https://images.unsplash.com/photo-1496483648148-47c686dc86a8",
-  "https://images.unsplash.com/photo-1591181520189-abcb0735c65d",
-];
-
-function generateDeck() {
+async function generateDeck() {
+  const images = await fetchImages();
   return shuffle([...images, ...images]);
 }
 
 export default function Home() {
-  const [cards] = useState(generateDeck());
+  const [cards, setCards] = useState<string[]>([]);
 
-  return <MemoGame images={cards} />;
+  console.log({ cards });
+
+  useEffect(() => {
+    (async () => {
+      setCards(await generateDeck());
+    })();
+  }, []);
+
+  return (
+    <div className="page">
+      {cards.length ? (
+        <MemoGame images={cards} />
+      ) : (
+        <div className="loading">
+          <CircularProgress size="5rem" />
+        </div>
+      )}
+      <Footer />
+    </div>
+  );
 }
