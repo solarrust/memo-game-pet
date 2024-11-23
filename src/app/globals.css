@@ -36,9 +36,3 @@ a {
   margin-inline: auto;
   padding-block: 2rem;
 }
-
-.loading {
-  display: grid;
-  place-items: center;
-  height: 100%;
-}

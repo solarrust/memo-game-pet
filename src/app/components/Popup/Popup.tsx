@@ -11,6 +11,7 @@ import { TransitionProps } from "@mui/material/transitions";
 
 interface PopupProps {
   restartFn: () => void;
+  pairs: number;
   steps: number;
 }
 
@@ -23,7 +24,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Popup({ restartFn, steps }: PopupProps) {
+export default function Popup({ restartFn, pairs, steps }: PopupProps) {
   const [open, setOpen] = useState(true);
 
   const handleClose = () => {
@@ -44,7 +45,9 @@ export default function Popup({ restartFn, steps }: PopupProps) {
     >
       <DialogTitle>You Won! 🎉</DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-slide-description">It took {steps} steps</DialogContentText>
+        <DialogContentText id="alert-dialog-slide-description">
+          You found {pairs} pairs in {steps} steps
+        </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Restart Game</Button>

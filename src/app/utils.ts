@@ -7,11 +7,7 @@ export function randomInteger({ min, max }: randomIntegerProps = { min: 0, max: 
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-interface fetchImagesProps {
-  limit: number;
-}
-
-export async function fetchImages({ limit }: fetchImagesProps = { limit: 6 }) {
+export async function fetchImages(limit: number = 6) {
   const result = [];
 
   while (result.length < limit) {

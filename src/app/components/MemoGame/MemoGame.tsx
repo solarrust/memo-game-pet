@@ -2,7 +2,7 @@
 import React, { MouseEvent, useEffect, useState } from "react";
 import Image from "next/image";
 
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 
 import Popup from "../Popup/Popup";
 
@@ -49,13 +49,26 @@ export default function MemoGame({ images }: MemoGameProps) {
     window.location.reload();
   }
 
-  if (steps === 1) {
+  function calcCardWidth() {
+    let cardWidth = "calc(100% / 4 - 10px)";
+
+    if (images.length % 4 === 0) {
+      if (images.length % 5 === 0) {
+        cardWidth = "calc(100% / 5 - 10px)";
+      }
+    }
+
+    return cardWidth;
   }
 
-  return (
+  return !images.length ? (
+    <div className={styles.loading}>
+      <CircularProgress size="5rem" />
+    </div>
+  ) : (
     <section className={styles["memo-game"]}>
       <h1 className={styles.title}>Memo Game</h1>
-      {gameOver && <Popup restartFn={resetGame} steps={steps} />}
+      {gameOver && <Popup restartFn={resetGame} pairs={images.length / 2} steps={steps} />}
       <div className={styles.counters}>
         <p>
           <b>Steps</b>: {steps}
@@ -70,6 +83,7 @@ export default function MemoGame({ images }: MemoGameProps) {
             key={index}
             className={`${styles.card} ${flipped.includes(index) || solved.includes(index) ? styles.flipped : ""}`}
             onClick={(event) => handleClick(event, index)}
+            style={{ flexBasis: calcCardWidth() }}
           >
             <Image
               src={`${image}`}
@@ -84,7 +98,7 @@ export default function MemoGame({ images }: MemoGameProps) {
         ))}
       </div>
       <div className={styles.footer}>
-        <Button variant="contained" className={styles.reset} onClick={() => resetGame()}>
+        <Button variant="contained" size="large" className={styles.reset} onClick={() => resetGame()}>
           Restart game
         </Button>
       </div>

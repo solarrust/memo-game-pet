@@ -1,0 +1,15 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 2rem;
+  font-size: clamp(20px, 8vw, 40px);
+  text-align: center;
+}
+
+.settings-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
