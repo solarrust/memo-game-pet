@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import shuffle from "lodash/shuffle";
 
 import MemoGame from "./components/MemoGame/MemoGame";
@@ -17,7 +18,7 @@ function generateDeck() {
 }
 
 export default function Home() {
-  const cards = generateDeck();
+  const [cards] = useState(generateDeck());
 
   return <MemoGame images={cards} />;
 }

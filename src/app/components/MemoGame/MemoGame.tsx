@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { MouseEvent, useEffect, useState } from "react";
 import Image from "next/image";
 
 import { Button } from "@mui/material";
@@ -17,7 +17,8 @@ export default function MemoGame({ images }: MemoGameProps) {
   const [solved, setSolved] = useState<number[]>([]);
   const [steps, setSteps] = useState(0);
 
-  function handleClick(event: React.MouseEvent, index: number) {
+  function handleClick(event: MouseEvent, index: number) {
+    if (flipped.length >= 2) return;
     setSteps((prev) => prev + 1);
     const target = event.target as HTMLDivElement;
     if (!flipped.includes(index) && flipped.length < 2) {
@@ -52,7 +53,10 @@ export default function MemoGame({ images }: MemoGameProps) {
     <div className={styles.page}>
       <h1 className={styles.title}>Memo Game</h1>
       {gameOver && <Popup restartFn={resetGame} steps={steps} />}
-
+      <p>Steps: {steps}</p>
+      <p>
+        Pairs found: {solved.length / 2} / {images.length / 2}
+      </p>
       <div className={styles.board}>
         {images.map((image, index) => (
           <div
