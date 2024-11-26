@@ -21,53 +21,6 @@
   perspective: 1000px;
 }
 
-.card {
-  position: relative;
-  display: grid;
-  flex-grow: 1;
-  place-items: center;
-  min-width: 80px;
-  aspect-ratio: 1;
-  border-radius: 0.5rem;
-  box-shadow: 5px 5px 5px rgb(0 0 0 / 10%);
-  font-weight: bold;
-  font-size: clamp(20px, 12vw, 80px);
-  transition: transform 300ms;
-  transform-origin: center;
-  transform-style: preserve-3d;
-  cursor: pointer;
-
-
-  & > * {
-    pointer-events: none;
-  }
-
-  &::after {
-    content: '?';
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    border-radius: inherit;
-    background: #8541AD;
-    background: linear-gradient(135deg, #8541AD, #E6B18A);
-    backface-visibility: hidden;
-  }
-}
-
-.image {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
-  object-fit: cover;
-  object-position: center;
-}
-
-.flipped {
-  transform: rotateY(180deg);
-}
-
 .footer {
   margin-top: 3rem;
   text-align: center;

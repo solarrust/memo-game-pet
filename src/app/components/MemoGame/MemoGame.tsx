@@ -1,15 +1,19 @@
 "use client";
 import React, { MouseEvent, useEffect, useState } from "react";
-import Image from "next/image";
 
 import { Button, CircularProgress } from "@mui/material";
 
+import Card from "../Card/Card";
 import Popup from "../Popup/Popup";
 
 import styles from "./MemoGame.module.css";
 
 interface MemoGameProps {
   images: string[];
+}
+
+function resetGame() {
+  window.location.reload();
 }
 
 export default function MemoGame({ images }: MemoGameProps) {
@@ -20,10 +24,8 @@ export default function MemoGame({ images }: MemoGameProps) {
   function handleClick(event: MouseEvent, index: number) {
     if (flipped.length >= 2) return;
     setSteps((prev) => prev + 1);
-    const target = event.target as HTMLDivElement;
     if (!flipped.includes(index) && flipped.length < 2) {
       setFlipped((prev) => [...prev, index]);
-      target.classList.toggle(styles.flipped);
     }
   }
 
@@ -45,21 +47,19 @@ export default function MemoGame({ images }: MemoGameProps) {
 
   const gameOver = solved.length === images.length;
 
-  function resetGame() {
-    window.location.reload();
-  }
-
-  function calcCardWidth() {
+  function calcCardWidth(imageCount = images.length) {
     let cardWidth = "calc(100% / 4 - 10px)";
 
-    if (images.length % 4 === 0) {
-      if (images.length % 5 === 0) {
+    if (imageCount % 4 === 0) {
+      if (imageCount % 5 === 0) {
         cardWidth = "calc(100% / 5 - 10px)";
       }
     }
 
     return cardWidth;
   }
+
+  const cardWidth = calcCardWidth(images.length);
 
   return !images.length ? (
     <div className={styles.loading}>
@@ -79,22 +79,14 @@ export default function MemoGame({ images }: MemoGameProps) {
       </div>
       <div className={styles.board}>
         {images.map((image, index) => (
-          <div
+          <Card
             key={index}
-            className={`${styles.card} ${flipped.includes(index) || solved.includes(index) ? styles.flipped : ""}`}
-            onClick={(event) => handleClick(event, index)}
-            style={{ flexBasis: calcCardWidth() }}
-          >
-            <Image
-              src={`${image}`}
-              alt="Memory Card"
-              className={styles.image}
-              fill={true}
-              sizes={"400px"}
-              priority={true}
-              loading="eager"
-            />
-          </div>
+            flipped={flipped.includes(index) || solved.includes(index)}
+            handleClick={(event) => handleClick(event, index)}
+            cardWidth={cardWidth}
+            image={image}
+            index={index}
+          />
         ))}
       </div>
       <div className={styles.footer}>

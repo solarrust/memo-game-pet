@@ -24,13 +24,13 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Popup({ restartFn, pairs, steps }: PopupProps) {
+export default function Popup({ restartFn: onRestart, pairs, steps }: PopupProps) {
   const [open, setOpen] = useState(true);
 
   const handleClose = () => {
     setOpen(false);
     setTimeout(() => {
-      restartFn();
+      onRestart();
     }, 1000);
   };
   return (

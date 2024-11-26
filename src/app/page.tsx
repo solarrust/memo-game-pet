@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <div className="page">
-      {!cardsLimit ? <Settings setCardsLimit={setCardsLimit} /> : <MemoGame images={cards} />}
+      {!cardsLimit ? <Settings onSetLimit={setCardsLimit} /> : <MemoGame images={cards} />}
       <Footer />
     </div>
   );
