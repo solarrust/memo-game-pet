@@ -9,7 +9,7 @@ interface SettingsProps {
 }
 
 export default function Settings({ onSetLimit }: SettingsProps) {
-  const variants = [6, 8, 10, 16, 20];
+  const variants = [6, 9, 12, 15, 18];
   return (
     <div className={styles.settings}>
       <p>How many cards do you want?</p>

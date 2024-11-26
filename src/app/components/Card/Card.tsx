@@ -8,16 +8,14 @@ interface CardProps {
   index: number;
   flipped: boolean;
   handleClick: (event: React.MouseEvent, index: number) => void;
-  cardWidth: string;
 }
 
-export default function Card({ image, index, flipped, handleClick, cardWidth }: CardProps) {
+export default function Card({ image, index, flipped, handleClick }: CardProps) {
   return (
     <div
       key={index}
       className={`${styles.card} ${flipped ? styles.flipped : ""}`}
       onClick={(event) => handleClick(event, index)}
-      style={{ flexBasis: cardWidth }}
     >
       <Image
         src={`${image}`}

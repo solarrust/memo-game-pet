@@ -22,6 +22,7 @@ export default function MemoGame({ images }: MemoGameProps) {
   const [steps, setSteps] = useState<number>(0);
 
   function handleClick(event: MouseEvent, index: number) {
+    if (flipped.includes(index) || solved.includes(index)) return;
     if (flipped.length >= 2) return;
     setSteps((prev) => prev + 1);
     if (!flipped.includes(index) && flipped.length < 2) {
@@ -47,20 +48,6 @@ export default function MemoGame({ images }: MemoGameProps) {
 
   const gameOver = solved.length === images.length;
 
-  function calcCardWidth(imageCount = images.length) {
-    let cardWidth = "calc(100% / 4 - 10px)";
-
-    if (imageCount % 4 === 0) {
-      if (imageCount % 5 === 0) {
-        cardWidth = "calc(100% / 5 - 10px)";
-      }
-    }
-
-    return cardWidth;
-  }
-
-  const cardWidth = calcCardWidth(images.length);
-
   return !images.length ? (
     <div className={styles.loading}>
       <CircularProgress size="5rem" />
@@ -81,11 +68,10 @@ export default function MemoGame({ images }: MemoGameProps) {
         {images.map((image, index) => (
           <Card
             key={index}
+            index={index}
             flipped={flipped.includes(index) || solved.includes(index)}
             handleClick={(event) => handleClick(event, index)}
-            cardWidth={cardWidth}
             image={image}
-            index={index}
           />
         ))}
       </div>
